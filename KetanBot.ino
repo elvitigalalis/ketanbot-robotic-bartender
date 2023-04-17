@@ -58,4 +58,22 @@ void setup()
 
 void loop()
 {
+    if (limitSwitchFound == false) {
+        Serial.println("KetanBot does not know the location of the limit switch!")
+        setColor(255, 0, 0);
+        delay(1000);
+        
+        Serial.println("KetanBot is looking for the raft...");
+        currentButtonState = digitalRead(limitSwitchPin);
+        while(currentButtonState == LOW && limitSwitchFound == false) {
+            myMotor->step(10, FORWARD, SINGLE);
+            currentButtonState = digitalRead(buttonPin);
+        }
+        limitSwitchFound = true;
+
+        Serial.println("KetanBot has found the raft!");
+        myMotor.release();
+        setColor(0, 255, 0);
+        delay(500);
+    }
 }
