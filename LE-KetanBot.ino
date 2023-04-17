@@ -1,10 +1,20 @@
-#include <Adafruit_MotorShield.h>
 
 /*
 Lisul Elvitigala
 Coding and Web Design Officer Application
 4/5-4/16
 */
+
+// NOTE TO SELF:
+// DEFAULT CSV:
+// 17, 20, 1, 
+// 60, 20, 1, 
+// 61, 20, 1, 
+// 62, 20, 1, 
+
+// 17,20,01,60,20,01,61,20,1,62,20,1 
+
+#include <Adafruit_MotorShield.h>>
 
 // Create the motor shield object with the default I2C address
 Adafruit_MotorShield AFMS = Adafruit_MotorShield();
