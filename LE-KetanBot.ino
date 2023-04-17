@@ -68,7 +68,7 @@ void loop()
     currentButtonState = digitalRead(limitSwitchPin);
     while (currentButtonState == LOW && limitSwitchFound == false)
     {
-      myMotor->step(10, FORWARD, SINGLE);
+      myMotor->step(10, BACKWARD, SINGLE);
       currentButtonState = digitalRead(limitSwitchPin);
     }
     limitSwitchFound = true;
@@ -83,15 +83,15 @@ void loop()
   {
     for (int i = 0; i < opticCount; i++)
     {
-      myMotor->step((drinkMatrix[optic][0] * 10, FORWARD, SINGLE));
+      myMotor->step(drinkMatrix[i][0] * 10, FORWARD, SINGLE);
       myMotor->release();
 
-      while (drinkMatrix[optic][2] > 0 && limitSwitchFound)
+      while (drinkMatrix[i][2] > 0 && limitSwitchFound)
       {
         delay(500);
-        myMotor1->step(2100, BACKWARD, DOUBLE);
-        delay((drinkMatrix[i][1]) * 100);
         myMotor1->step(2100, FORWARD, DOUBLE);
+        delay((drinkMatrix[i][1]) * 100);
+        myMotor1->step(2100, BACKWARD, DOUBLE);
         myMotor1->release();
         drinkMatrix[i][2]--;
         delay(500);
