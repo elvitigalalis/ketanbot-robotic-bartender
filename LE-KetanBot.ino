@@ -39,6 +39,7 @@ void setup()
     ;
   Serial.println("Program running!");
   if (!AFMS.begin())
+  
   {
     Serial.println("Could not find Motor Shield. Check wiring.");
     while (1)
@@ -89,9 +90,9 @@ void loop()
       while (drinkMatrix[i][2] > 0 && limitSwitchFound)
       {
         delay(500);
-        myMotor1->step(2100, FORWARD, DOUBLE);
+        myMotor1->step(1825, FORWARD, DOUBLE);
         delay((drinkMatrix[i][1]) * 100);
-        myMotor1->step(2100, BACKWARD, DOUBLE);
+        myMotor1->step(1825, BACKWARD, DOUBLE);
         myMotor1->release();
         drinkMatrix[i][2]--;
         delay(500);
