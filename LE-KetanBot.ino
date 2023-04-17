@@ -18,7 +18,7 @@ const int greenPin = 10;
 const int redPin = 9;
 int bluePin = A1;
 
-int numberCollector;
+int numberGroup;
 byte serialNumber;
 const int opticCount = 4;
 const int parameterCount = 3;
@@ -107,29 +107,47 @@ void loop()
 
   while (drinkRequested == false)
   {
-    if (Serial.available()) {
-      for (int i = 0; i < opticCount; i++) {
-        for (int j = 0; j < parameterCount; j++) {
-
+    if (Serial.available())
+    {
+      for (int i = 0; i < opticCount; i++)
+      {
+        for (int j = 0; j < parameterCount; j++)
+        {
+          for (int k = 0; k < parameterSize; k++)
+          {
+            if (Serial.available())
+            {
+              serialNumber = Serial.read();
+              serialNumber -= 48;
+              numberGroup = numberGroup * 10 + serialNumber;
+            }
+            else
+            {
+              delay(250);
+              serialNumber = Serial.read();
+              serialNumber -= 48;
+            }
+          }
+          drinkMatrix[i][j] = numberGroup;
+          numberGroup = 0;
+          serialNumber = Serial.read();
         }
       }
-    }
-    else {
-      delay(250);
-      serialNumber = Serial.read();
-      serialNumber = serial
+      serialPrintArray();
+      Serial.println("KetanBot has finished inputting!");
+      drinkRequested = true;
     }
   }
 }
 
-void checkArray()
+void serialPrintArray()
 {
   for (int i = 0; i < opticCount; i++)
   {
     for (int j = 0; j < 3; j++)
     {
       Serial.print(drinkMatrix[i][j]);
-      Serial.print(",");
+      Serial.print(", ");
     }
     Serial.println();
   }
