@@ -3,7 +3,8 @@
         {
             "name": "Mac",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "Adafruit_Motor_Shield_V2_Library/**"
             ],
             "defines": [],
             "macFrameworkPath": [

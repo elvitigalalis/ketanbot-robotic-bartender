@@ -1,5 +1,5 @@
 {
     "board": "arduino:avr:uno",
     "port": "/dev/tty.usbmodem214301",
-    "sketch": "KetanBot.ino"
+    "sketch": "LE-KetanBot.ino"
 }
