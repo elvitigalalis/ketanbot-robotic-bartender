@@ -1,20 +1,10 @@
+#include <Adafruit_MotorShield.h>
 
 /*
 Lisul Elvitigala
 Coding and Web Design Officer Application
 4/5-4/16
 */
-
-// NOTE TO SELF:
-// DEFAULT CSV:
-// 17, 20, 1, 
-// 60, 20, 1, 
-// 61, 20, 1, 
-// 62, 20, 1, 
-
-// 17,20,01,60,20,01,61,20,1,62,20,1 
-
-#include <Adafruit_MotorShield.h>>
 
 // Create the motor shield object with the default I2C address
 Adafruit_MotorShield AFMS = Adafruit_MotorShield();
@@ -49,7 +39,7 @@ void setup()
     ;
   Serial.println("Program running!");
   if (!AFMS.begin())
-  
+
   {
     Serial.println("Could not find Motor Shield. Check wiring.");
     while (1)
@@ -90,16 +80,21 @@ void loop()
     delay(500);
   }
 
+  // Check if a drink has been requested
   if (drinkRequested)
   {
+    // Loop through each optic
     for (int i = 0; i < opticCount; i++)
     {
+      // Move the X-axis motor to the appropriate position
       myMotor->step(drinkMatrix[i][0] * 10, FORWARD, SINGLE);
       myMotor->release();
 
+      // Move the Y-axis motors to pour the appropriate amount of drink
       while (drinkMatrix[i][2] > 0 && limitSwitchFound)
       {
         delay(500);
+        // Move a second motor to position the glass
         myMotor1->step(1825, FORWARD, DOUBLE);
         delay((drinkMatrix[i][1]) * 100);
         myMotor1->step(1825, BACKWARD, DOUBLE);
@@ -108,49 +103,54 @@ void loop()
         delay(500);
       }
     }
-  }
 
-  Serial.println("KetanBot has prepared your drink!");
-  Serial.println("Enjoy!!!");
-  setColor(0, 0, 255);
-  drinkRequested = false;
-  limitSwitchFound = false;
+    // Indicate that the drink is ready and reset the machine
+    Serial.println("KetanBot has prepared your drink!");
+    Serial.println("Enjoy!!!");
+    setColor(0, 0, 255);
+    drinkRequested = false;
+    limitSwitchFound = false;
 
-  while (drinkRequested == false)
-  {
-    if (Serial.available())
+    // Wait for new drink instructions
+    while (drinkRequested == false)
     {
-      for (int i = 0; i < opticCount; i++)
+      if (Serial.available())
       {
-        for (int j = 0; j < parameterCount; j++)
+        // Parse input from user to determine drink instructions
+        for (int i = 0; i < opticCount; i++)
         {
-          for (int k = 0; k < parameterSize; k++)
+          for (int j = 0; j < parameterCount; j++)
           {
-            if (Serial.available())
+            for (int k = 0; k < parameterSize; k++)
             {
-              serialNumber = Serial.read();
-              serialNumber -= 48;
-              numberGroup = numberGroup * 10 + serialNumber;
+              if (Serial.available())
+              {
+                serialNumber = Serial.read();
+                serialNumber -= 48;
+                numberGroup = numberGroup * 10 + serialNumber;
+              }
+              else
+              {
+                delay(250);
+                serialNumber = Serial.read();
+                serialNumber -= 48;
+              }
             }
-            else
-            {
-              delay(250);
-              serialNumber = Serial.read();
-              serialNumber -= 48;
-            }
+            drinkMatrix[i][j] = numberGroup;
+            numberGroup = 0;
+            serialNumber = Serial.read();
           }
-          drinkMatrix[i][j] = numberGroup;
-          numberGroup = 0;
-          serialNumber = Serial.read();
         }
+        // Print the current drink instructions
+        serialPrintArray();
+        Serial.println("KetanBot has finished inputting!");
+        drinkRequested = true;
       }
-      serialPrintArray();
-      Serial.println("KetanBot has finished inputting!");
-      drinkRequested = true;
     }
   }
 }
 
+// Print out the current drink instructions
 void serialPrintArray()
 {
   for (int i = 0; i < opticCount; i++)
@@ -164,6 +164,7 @@ void serialPrintArray()
   }
 }
 
+// Set the LED color
 void setColor(int red, int green, int blue)
 {
 #ifdef COMMON_ANODE
