@@ -34,85 +34,115 @@ bool drinkRequested = false;
 
 void setup()
 {
-    Serial.begin(9600); 
-    while (!Serial)
-        ;
-    Serial.println("Program running!");
-    if (!AFMS.begin())
-    { 
-        Serial.println("Could not find Motor Shield. Check wiring.");
-        while (1)
-            ;
-    }
-    Serial.println("Motor Shield found.");
+  Serial.begin(9600);
+  while (!Serial)
+    ;
+  Serial.println("Program running!");
+  if (!AFMS.begin())
+  {
+    Serial.println("Could not find Motor Shield. Check wiring.");
+    while (1)
+      ;
+  }
+  Serial.println("Motor Shield found.");
 
-    pinMode(limitSwitchPin, INPUT);
-    pinMode(LED_BUILTIN, OUTPUT);
-    pinMode(redPin, OUTPUT);
-    pinMode(bluePin, OUTPUT);
-    pinMode(greenPin, OUTPUT);
+  pinMode(limitSwitchPin, INPUT);
+  pinMode(LED_BUILTIN, OUTPUT);
+  pinMode(redPin, OUTPUT);
+  pinMode(bluePin, OUTPUT);
+  pinMode(greenPin, OUTPUT);
 
-    myMotor->setSpeed(600); 
-    myMotor1->setSpeed(600);
+  myMotor->setSpeed(600);
+  myMotor1->setSpeed(600);
 }
 
 void loop()
 {
-    if (limitSwitchFound == false) {
-        Serial.println("KetanBot does not know the location of the limit switch!");
-        setColor(255, 0, 0);
-        delay(1000);
-        
-        Serial.println("KetanBot is looking for the raft...");
-        currentButtonState = digitalRead(limitSwitchPin);
-        while(currentButtonState == LOW && limitSwitchFound == false) {
-            myMotor->step(10, FORWARD, SINGLE);
-            currentButtonState = digitalRead(limitSwitchPin);
-        }
-        limitSwitchFound = true;
+  if (limitSwitchFound == false)
+  {
+    Serial.println("KetanBot does not know the location of the limit switch!");
+    setColor(255, 0, 0);
+    delay(1000);
 
-        Serial.println("KetanBot has found the raft!");
-        myMotor->release();
-        setColor(0, 255, 0);
+    Serial.println("KetanBot is looking for the raft...");
+    currentButtonState = digitalRead(limitSwitchPin);
+    while (currentButtonState == LOW && limitSwitchFound == false)
+    {
+      myMotor->step(10, FORWARD, SINGLE);
+      currentButtonState = digitalRead(limitSwitchPin);
+    }
+    limitSwitchFound = true;
+
+    Serial.println("KetanBot has found the raft!");
+    myMotor->release();
+    setColor(0, 255, 0);
+    delay(500);
+  }
+
+  if (drinkRequested)
+  {
+    for (int i = 0; i < opticCount; i++)
+    {
+      myMotor->step((drinkMatrix[optic][0] * 10, FORWARD, SINGLE));
+      myMotor->release();
+
+      while (drinkMatrix[optic][2] > 0 && limitSwitchFound)
+      {
         delay(500);
+        myMotor1->step(2100, BACKWARD, DOUBLE);
+        delay((drinkMatrix[i][1]) * 100);
+        myMotor1->step(2100, FORWARD, DOUBLE);
+        myMotor1->release();
+        drinkMatrix[i][2]--;
+        delay(500);
+      }
     }
+  }
 
-    if (drinkRequested) {
+  Serial.println("KetanBot has prepared your drink!");
+  Serial.println("Enjoy!!!");
+  setColor(0, 0, 255);
+  drinkRequested = false;
+  limitSwitchFound = false;
+
+  while (drinkRequested == false)
+  {
+    if (Serial.available()) {
       for (int i = 0; i < opticCount; i++) {
-        myMotor->step((drinkMatrix[optic][0] * 10, FORWARD, SINGLE));
-        myMotor->release();
+        for (int j = 0; j < parameterCount; j++) {
 
-    while(drinkMatrix[optic][2] > 0 && limitSwitchFound) {
-      delay(500);
-      myMotor1->step(2100, BACKWARD, DOUBLE);
-      delay((drinkMatrix[i][1])* 100);
-      myMotor1->step(2100, FORWARD, DOUBLE);
-      myMotor1->release();
-      drinkMatrix[i][2]--;
-      delay(500);
+        }
+      }
+    }
+    else {
+      delay(250);
+      serialNumber = Serial.read();
+      serialNumber = serial
     }
   }
-
 }
 
-void CheckArray(){
-for(int i = 0; i < opticCount; i++) {
-  for(int j = 0; j < 3; j++) {
-    Serial.print(drinkMatrix[i][j]);
-    Serial.print(",");
+void checkArray()
+{
+  for (int i = 0; i < opticCount; i++)
+  {
+    for (int j = 0; j < 3; j++)
+    {
+      Serial.print(drinkMatrix[i][j]);
+      Serial.print(",");
+    }
+    Serial.println();
   }
-  Serial.println();
-}
 }
 
 void setColor(int red, int green, int blue)
 {
-  #ifdef COMMON_ANODE
-    red = 255 - red;
-    green = 255 - green;
-    blue = 255 - blue;
-  #endif
+#ifdef COMMON_ANODE
+  red = 255 - red;
+  green = 255 - green;
+  blue = 255 - blue;
+#endif
   analogWrite(redPin, red);
   analogWrite(greenPin, green);
-  analogWrite(bluePin, blue);  
+  analogWrite(bluePin, blue);
 }
