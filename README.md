@@ -1,20 +1,44 @@
-# KetanBot Drink Dispenser
-This program controls the KetanBot Drink Dispenser, which uses stepper motors to dispense various drinks. The program is written in C++ and utilizes the Adafruit Motor Shield library to control the stepper motors. The dispenser has four optic sensors, each connected to a specific drink. The user inputs the desired amount of each drink, and the dispenser uses the stepper motors to pour the appropriate amount.
+# KetanBot - Robotic Bartender
+KetanBot is a robotic bartender powered by an Adafruit Motor Shield and an Arduino microcontroller. It can mix and pour drinks automatically based on input received through serial communication. In this guide, we will go over the hardware and software requirements, as well as the installation and usage instructions.
 
-Getting Started
-To use the KetanBot Drink Dispenser, you will need:
+## Hardware Requirements
+- Arduino Uno or compatible board
+- Adafruit Motor Shield v2
+- Stepper motors (2)
+- Limit switch
+- RGB LED
+- Various wires and breadboard
+- 8mm Steel Rod
+- Linear Bearings
+- Timing Belt and Pulley (2m or 5m version)
+- Contact Switch
 
-An Arduino board (such as the Uno)
-The Adafruit Motor Shield
-Four optic sensors
-Four stepper motors
-Once you have all the necessary hardware, you can upload the program to your Arduino board and wire everything up according to the instructions.
+## Software Requirements
+- Adafruit Motor Shield library
+- Arduino IDE
 
-Usage
-The program will start by looking for the location of the limit switch. Once it finds the limit switch, it will wait for user input. The user will input the desired amount of each drink through the serial monitor. Once the program receives the input, it will dispense the drinks and reset the dispenser.
+## Installation
+  1) Install the Adafruit Motor Shield library in the Arduino IDE by going to Sketch > Include Library > Manage Libraries and searching for "Adafruit Motor Shield".
+  2) Connect the hardware components as shown in the wiring diagram. The 8mm steel rod and linear bearings should be used to create a linear actuator for the pouring mechanism.
+  3) Upload the KetanBot.ino sketch to the Arduino board using the Arduino IDE.
 
-Contributing
-If you find any issues or have any suggestions for improving the program, feel free to open an issue or submit a pull request.
+## Usage
+  1) Connect the Arduino board to a computer via USB.
+  2) Open the Serial Monitor in the Arduino IDE.
+  3) Input drink instructions in the following format: XX YY ZZ, where XX is the number of steps for the X-axis motor, YY is the time to pour the drink in milliseconds, and ZZ is the number of pours.
+  4) Press Enter to send the drink instructions to KetanBot.
+  5) KetanBot will automatically mix and pour the drink.
+  6) When KetanBot is finished, the RGB LED will turn blue and a message will be displayed in the Serial Monitor.
 
-Credits
-This program was created by Lisul Elvitigala as part of an application for the Coding and Web Design Officer position. It is based on the Adafruit Motor Shield library and was developed during the period of 4/5-4/16.
+## Code Explanation
+The KetanBot.ino sketch uses the Adafruit Motor Shield library to control the stepper motors and limit switch. The stepper motors are used to control the X and Y axes of the pouring mechanism, while the limit switch is used to detect when the mechanism has reached its starting position.
+
+The code uses serial communication to receive input from the user in the format mentioned above. Once the input is received, the appropriate stepper motors are moved the specified number of steps to position the pouring mechanism over the appropriate container. The motor is then run for the specified time to pour the drink, and the process is repeated for the specified number of pours.
+
+Once the pouring process is complete, the RGB LED is turned blue and a message is sent to the Serial Monitor.
+
+## Contributors
+Lisul Elvitigala
+
+## License
+This project is licensed under the MIT License. See the LICENSE file for more information.
