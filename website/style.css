@@ -1,0 +1,226 @@
+
+/* Set the font family and size */
+body {
+    font-family: arial;
+    font-size: 16px;
+    line-height: 1.5;
+}
+
+/* Style the header and navigation */
+header {
+  background-color: #1d1665;
+  color: #fff;
+  padding: 10px;
+  font-size: 15px;
+}
+
+nav ul{
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+}
+
+
+nav li {
+  margin: 0 10px;
+}
+
+nav a, nav p {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+nav p {
+    align-content: center;
+    margin-bottom: 0;
+    font-size: 20px;
+    margin-right: 20px;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+/* Style the main content */
+main {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: bold;
+  margin: 0 0 10px;
+}
+
+h1 {
+  font-size: 36px;
+  line-height: 1.2;
+  color: #eb048b;
+}
+
+h2 {
+  font-size: 24px;
+  line-height: 1.3;
+  color: #1d1665;
+}
+
+p {
+  margin: 0 0 20px;
+}
+
+/* Style the about me section */
+#about-me {
+  margin: 40px 0;
+  display: flex;
+  align-items: center;
+}
+
+#about-me ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+#about-me li {
+  margin: 0;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+#about-me li:before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: -40px;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  object-fit: cover;
+  font-size: 40px; /* Add this line to change the font size */
+}
+
+.bullet-image {
+  max-width: 25%;
+  border-radius: 25%;
+  margin-right: 20px;
+}
+
+#about-me img {
+  max-width: 150px;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+#about-me p:last-child {
+  margin-bottom: 0;
+}
+
+/* Make the text container next to the image auto resize */
+#about-me .text-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 20px;
+}
+
+/* Style the about project section */
+#about-project {
+margin: 0px 0;
+}
+
+#about-project ul {
+list-style: disc;
+margin: 0 0 20px 30px;
+}
+
+#about-project li {
+margin: 0 0 10px;
+}
+
+#about-project ol {
+list-style: decimal;
+margin: 0 0 20px 30px;
+}
+
+#about-project ol li {
+margin: 0 0 10px;
+}
+
+.center {
+    text-align: center;
+    font-size: 50px;
+    margin: 0 auto;
+}
+
+.center1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+.image-with-bullets {
+    display:flex;
+    align-items:center;
+}
+
+.image-with-bullets img {
+  max-width: 30%;
+  margin-right: 20px;
+}
+
+.image-with-bullets ul {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.image-with-bullets li {
+  margin-bottom: 10px;
+}
+/* Style links */
+a {
+color: #1d1665;
+}
+
+a:hover {
+color: #eb048b;
+text-decoration: underline;
+}
+
+.center {
+    margin-bottom: 25px;
+    background-color: #f5bcdd;
+    padding: 20px 20px;
+}
+.box {
+    border: 1px solid #333;
+    padding: 0;
+    margin: 0;
+    text-align: center;
+}
+
+main {
+    text-align: center;
+}
+
+.homeBox {
+display: flex;
+}
+img {
+    margin-top: 20px;
+    width: 30vh;
+    border-radius: 2em 0;
+}
+
+li p{
+    text-align: left;
+}

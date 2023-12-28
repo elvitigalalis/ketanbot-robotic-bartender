@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>About the Project - My Website</title>
+  <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+  <header>
+    <nav>
+            <ul>
+                <p>KetanBot</p>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about-me.html">About Me</a></li>
+                <li><a href="research.html">Research</a></li>
+                <li><a href="about-project.html">Methodology</a></li>
+                <li><a href="prototyping.html">Prototyping</a></li>
+                <li><a href="programming.html">Programming</a></li>
+            </ul>
+        </nav>
+  </header>
+  <main>
+    <section id="about-project">
+      <h1 class = "center">About the Project</h1>
+      <p>KetanBot is a robotic bartender powered by an Adafruit Motor Shield and an Arduino microcontroller. It can mix and pour drinks automatically based on input received through serial communication. In this guide, we will go over the hardware and software requirements, as well as the installation and usage instructions.</p>
+
+  <h2>Hardware Requirements</h2>
+  <ul>
+    <li>Arduino Uno or compatible board</li>
+    <li>Adafruit Motor Shield v2</li>
+    <li>Stepper motors (2)</li>
+    <li>Limit switch</li>
+    <li>RGB LED</li>
+    <li>Various wires and breadboard</li>
+    <li>8mm Steel Rod</li>
+    <li>Linear Bearings</li>
+    <li>Timing Belt and Pulley (2m or 5m version)</li>
+    <li>Contact Switch</li>
+  </ul>
+
+  <h2>Software Requirements</h2>
+  <ul>
+    <li>Adafruit Motor Shield library</li>
+    <li>Arduino IDE</li>
+  </ul>
+
+  <h2>Installation</h2>
+  <ol>
+    <li>Install the Adafruit Motor Shield library in the Arduino IDE by going to Sketch > Include Library > Manage Libraries and searching for "Adafruit Motor Shield".</li>
+    <li>Connect the hardware components as shown in the wiring diagram. The 8mm steel rod and linear bearings should be used to create a linear actuator for the pouring mechanism.</li>
+    <li>Upload the KetanBot.ino sketch to the Arduino board using the Arduino IDE.</li>
+  </ol>
+
+  <h2>Usage</h2>
+  <ol>
+    <li>Connect the Arduino board to a computer via USB.</li>
+    <li>Open the Serial Monitor in the Arduino IDE.</li>
+    <li>Input drink instructions in the following format: XX YY ZZ, where XX is the number of steps for the X-axis motor, YY is the time to pour the drink in milliseconds, and ZZ is the number of pours.</li>
+    <li>Press Enter to send the drink instructions to KetanBot.</li>
+    <li>KetanBot will automatically mix and pour the drink.</li>
+    <li>When KetanBot is finished, the RGB LED will turn blue and a message will be displayed in the Serial Monitor.</li>
+  </ol>
+
+  <h2>Code Explanation</h2>
+  <p>The KetanBot.ino sketch uses the Adafruit Motor Shield library to control the stepper motors and limit switch. The stepper motors are used to control the X and Y axes of the pouring mechanism, while the limit switch is used to detect when the mechanism has reached its starting position.</p>
+
+  <p>The code uses serial communication to receive input from the user in the format mentioned above. Once the input is received, the appropriate stepper motors are moved the specified number of steps

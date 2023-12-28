@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Programming</title>
+    <link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <p>KetanBot</p>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="about-me.html">About Me</a></li>
+                <li><a href="research.html">Research</a></li>
+                <li><a href="about-project.html">Methodology</a></li>
+                <li><a href="prototyping.html">Prototyping</a></li>
+                <li><a href="#">Programming</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <section>
+            <h1 class="center">Programming</h1>
+            <div class="box">
+                <h2>Overview</h2>
+                <p>The programming code controls the KetanBot's movement and recipe database. It defines the motors, pins, and sensors necessary to pour drinks based on the user's request. The code also includes functions to initialize the motors, LEDs, and pins.</p>
+            </div>
+            <div class="box">
+                <h2>Objectives</h2>
+                <p>The primary objective of the programming code is to ensure the KetanBot can accurately and efficiently pour drinks based on the user's request. This involves controlling the movement of the motors and calculating the correct amount of each ingredient to pour for each recipe. Secondary objectives include ensuring the user interface is intuitive and easy to use, and that the KetanBot operates safely and reliably.</p>
+            </div>
+            <div class="box">
+                <h2>Implementation</h2>
+                <p>The programming code utilizes an Adafruit Motor Shield object to control two stepper motors, myMotor and myMotor1. Several pins are defined for limit switches, LEDs, and sensors. A 2D array called drinkMatrix is created to store data about drink recipes. The setup function initializes the motors, LEDs, and pins. The loop function is where the KetanBot's actions are defined. The first part of the loop checks if the limit switch has been found and if not, moves the motor until the switch is triggered. The second part of the loop checks if a drink has been requested and, if so, loops through each optic and moves the motors to pour the correct amount of drink into the glass.</p>
+            </div>
+            <img src="IMG_2577_2.jpg">
+        </section>
+    </main>
+</body>
+</html>
